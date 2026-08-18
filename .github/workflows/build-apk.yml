@@ -14,11 +14,34 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
+      - name: Instalar dependências do sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git \
+            zip \
+            unzip \
+            openjdk-17-jdk \
+            python3-pip \
+            autoconf \
+            libtool \
+            pkg-config \
+            zlib1g-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            cmake \
+            libffi-dev \
+            libssl-dev
+
+      - name: Instalar Python e Buildozer
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install buildozer
+          python3 -m pip install cython==0.29.34
+
       - name: Gerar APK
-        uses: ArtemSBulgakov/buildozer-action@v1
-        with:
-          command: buildozer -v android debug
-          workdir: .
+        run: |
+          buildozer -v android debug
 
       - name: Salvar APK
         uses: actions/upload-artifact@v4
