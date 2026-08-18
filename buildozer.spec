@@ -5,7 +5,7 @@ package.domain = br.tecnologiastore
 source.dir = .
 source.include_exts = py,png,jpg,jpeg,kv,atlas,txt
 version = 1.0
-requirements = python3,kivy,requests,beautifulsoup4,pillow,pyjnius
+requirements = python3,kivy,requests,beautifulsoup4
 orientation = portrait
 fullscreen = 0
 
