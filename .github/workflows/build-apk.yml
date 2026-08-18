@@ -14,16 +14,10 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
-      - name: Instalar dependências do sistema
+      - name: Instalar dependências
         run: |
-          export DEBIAN_FRONTEND=noninteractive
-
-          sudo timeout 5m apt-get update \
-            -o Acquire::Retries=3 \
-            -o Acquire::http::Timeout=30 \
-            -o Acquire::https::Timeout=30
-
-          sudo timeout 10m apt-get install -y \
+          sudo apt-get update
+          sudo apt-get install -y \
             git \
             zip \
             unzip \
@@ -39,11 +33,16 @@ jobs:
             libffi-dev \
             libssl-dev
 
-      - name: Instalar Python Buildozer
+      - name: Instalar Buildozer
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install buildozer
           python3 -m pip install cython==0.29.34
+
+      - name: Limpar ambiente anterior
+        run: |
+          rm -rf ~/.buildozer
+          rm -rf .buildozer
 
       - name: Gerar APK
         run: |
